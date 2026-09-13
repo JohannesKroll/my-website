@@ -1,0 +1,353 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Playground from '../components/Playground.astro';
+---
+
+<Layout>
+  <main id="main">
+    <section class="hero wrap" id="top" aria-labelledby="hero-title">
+      <div class="hero-index">
+        <span>Software, AI & a few other things</span>
+        <span>Personal website / JK</span>
+      </div>
+      <div class="hero-main">
+        <div class="hero-name">
+          <span class="eyebrow">Hello, I’m</span>
+          <h1 id="hero-title">
+            Johannes
+            <br />
+            <span>Kroll.</span>
+          </h1>
+        </div>
+        <figure class="hero-portrait">
+          <img
+            src="/images/johannes.webp"
+            width="250"
+            height="250"
+            alt="Johannes Kroll"
+            fetchpriority="high"
+          />
+          <figcaption>
+            Developer & data scientist.
+            <br />
+            Karate practitioner, too.
+          </figcaption>
+        </figure>
+      </div>
+      <div class="hero-bottom">
+        <span class="margin-note">A short introduction</span>
+        <div>
+          <p>
+            I’m a data scientist at SAP, developing AI use cases—mostly agentic systems. I also
+            build websites and software for clients.
+          </p>
+          <p class="hero-subtext">
+            This is a collection of things I’ve worked on, things I care about, and a couple of
+            games you can play.
+          </p>
+          <div class="hero-links">
+            <a class="text-link" href="#work">
+              Look around <span aria-hidden="true">↓</span>
+            </a>
+            <a class="text-link" href="#contact">
+              Get in touch <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="work-section wrap section-shell" id="work" aria-labelledby="work-title">
+      <div class="section-margin">
+        <span class="section-number">01</span>
+        <span>Selected work</span>
+        <p>
+          Client work, research
+          <br />
+          and side projects.
+        </p>
+      </div>
+      <div class="section-content">
+        <div class="section-heading">
+          <h2 id="work-title">Some of my work.</h2>
+          <a
+            class="text-link"
+            href="https://github.com/JohannesKroll"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <article class="featured-project">
+          <a
+            class="knapp-preview"
+            href="https://knappmalerei.de"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/images/knapp-website.webp"
+              width="1000"
+              height="690"
+              alt="Knapp Malerei website, showing the company’s painting and restoration work"
+              loading="lazy"
+            />
+            <span class="image-caption">
+              knappmalerei.de <span aria-hidden="true">↗</span>
+            </span>
+          </a>
+          <div class="featured-copy">
+            <span class="eyebrow">Client website · 2023</span>
+            <h3>Knapp Malerei</h3>
+            <p>
+              A website for a Munich painting business. I worked directly with the client on its
+              design, development, and maintenance.
+            </p>
+            <p class="project-detail">
+              A local business, a real person to talk to, and a website to take care of.
+            </p>
+            <a
+              class="text-link"
+              href="https://knappmalerei.de"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit the website <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+        <article class="project-row">
+          <div class="project-date">
+            2024
+            <br />
+            <span>BMW</span>
+          </div>
+          <div>
+            <h3>How useful is the answer?</h3>
+            <p>
+              My master’s thesis compared retrieval-augmented generation architectures. At BMW, I
+              also worked on fine-tuning language models and deploying them on GPU infrastructure.
+            </p>
+            <span class="project-detail">RAG evaluation / LLMs / Deployment</span>
+          </div>
+          <span class="project-type">Research</span>
+        </article>
+        <article class="project-row pi-project">
+          <div class="project-date">
+            Side project
+            <br />
+            <span>Python</span>
+          </div>
+          <div>
+            <h3>
+              <a
+                href="https://github.com/JohannesKroll/mvg-on-pi"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                When’s the next train? <span aria-hidden="true">↗</span>
+              </a>
+            </h3>
+            <p>
+              Munich’s public transport departures on a Raspberry Pi and a small LCD. A little
+              Python project for information you want at a glance.
+            </p>
+            <a
+              class="text-link"
+              href="https://github.com/JohannesKroll/mvg-on-pi"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read the code <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <div
+            class="lcd-illustration"
+            role="img"
+            aria-label="Illustrative transit display, not live departures"
+          >
+            <div class="lcd-screen" aria-hidden="true">
+              <span>MVG DEPARTURES</span>
+              <span>U6 Garching &nbsp;3m</span>
+              <span>U3 Moosach &nbsp; 7m</span>
+            </div>
+            <span class="lcd-caption">Illustrative display</span>
+          </div>
+        </article>
+        <section class="services" id="services" aria-labelledby="services-title">
+          <h3 id="services-title">Working together</h3>
+          <p>
+            I can help with a business website, a custom tool, or an AI use case you want to
+            explore. Here’s the kind of work I take on:
+          </p>
+          <dl class="services-list">
+            <div>
+              <dt>Websites</dt>
+              <dd>Design, development, and ongoing maintenance.</dd>
+            </div>
+            <div>
+              <dt>AI & data</dt>
+              <dd>Agentic workflows, language models, and finding answers in your documents.</dd>
+            </div>
+            <div>
+              <dt>Software</dt>
+              <dd>Custom tools, backends, and automating repetitive tasks.</dd>
+            </div>
+          </dl>
+          <a class="text-link" href="#contact">
+            Tell me what you’re working on <span aria-hidden="true">↗</span>
+          </a>
+        </section>
+      </div>
+    </section>
+
+    <section class="about-section wrap section-shell" id="about" aria-labelledby="about-title">
+      <div class="section-margin">
+        <span class="section-number">02</span>
+        <span>About me</span>
+        <p>
+          A few things beyond
+          <br />
+          the project list.
+        </p>
+      </div>
+      <div class="section-content">
+        <h2 id="about-title">A bit of background.</h2>
+        <div class="about-grid">
+          <div class="about-copy">
+            <p class="about-lead">
+              I like knowing how things work. Reading the source code usually helps.
+            </p>
+            <p>
+              I studied computer science at the Technical University of Munich, worked on websites
+              and backend services at Westend61, and explored language models at BMW.
+            </p>
+            <p>
+              Since April 2025, I’ve been a Data Scientist at SAP, developing AI use cases with a
+              focus on agentic systems.
+            </p>
+            <h3>Open source</h3>
+            <p>
+              I’m a big fan. Being able to read the code, learn from someone else’s approach, and
+              build on shared work is a big part of what I enjoy about software.
+            </p>
+            <div class="social-links">
+              <a
+                class="text-link"
+                href="https://github.com/JohannesKroll"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                My GitHub <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                class="text-link"
+                href="https://www.linkedin.com/in/johannes-kroll-6b4248223/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+          <aside class="experience-note" aria-label="Experience at a glance">
+            <span class="eyebrow">The short version</span>
+            <dl>
+              <div>
+                <dt>April 2025 — now</dt>
+                <dd>
+                  SAP<span>Data Scientist · Agentic AI</span>
+                </dd>
+              </div>
+              <div>
+                <dt>2024</dt>
+                <dd>
+                  BMW<span>AI research & development</span>
+                </dd>
+              </div>
+              <div>
+                <dt>2017 — 2023</dt>
+                <dd>
+                  Westend61<span>Software development</span>
+                </dd>
+              </div>
+              <div>
+                <dt>2017 — 2024</dt>
+                <dd>
+                  TU Munich<span>B.Sc. & M.Sc. Computer Science</span>
+                </dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+        <div class="outside-work">
+          <h3>Outside of work</h3>
+          <div class="outside-grid">
+            <div>
+              <h4>On the mat</h4>
+              <p>
+                I’ve practised karate since childhood, earned my second-degree black belt, and
+                taught children and adults. It’s a different kind of problem-solving.
+              </p>
+            </div>
+            <div>
+              <h4>In the community</h4>
+              <p>
+                I volunteer with SV 1880 München and Münchner Sportjugend. At SV 1880, I’ve helped
+                organize sports camps and youth events. I’ve also spent years helping at children’s
+                and youth camps with ZeitFrei.
+              </p>
+            </div>
+            <div>
+              <h4>Away for a while</h4>
+              <p>
+                Travelling solo through Asia gave me time to explore Russia, Japan, South Korea,
+                China, Vietnam, and Thailand. A lot to take in, and a lot to remember.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Playground />
+
+    <section
+      class="contact-section wrap section-shell"
+      id="contact"
+      aria-labelledby="contact-title"
+    >
+      <div class="section-margin">
+        <span class="section-number">04</span>
+        <span>Contact</span>
+      </div>
+      <div class="section-content">
+        <h2 id="contact-title">Drop me a line.</h2>
+        <p>Tell me what you have in mind. A few sentences are enough to start.</p>
+        <a class="email-link" href="mailto:mail@johanneskroll.com">
+          mail@johanneskroll.com
+        </a>
+        <div class="contact-bottom">
+          <div class="contact-actions">
+            <a class="text-link" href="mailto:mail@johanneskroll.com">
+              Let’s talk <span aria-hidden="true">↗</span>
+            </a>
+            <button id="copy-email" class="copy-email" hidden>
+              Copy email
+            </button>
+          </div>
+          <span class="margin-note">German or English is fine.</span>
+        </div>
+      </div>
+    </section>
+    <div class="endnote wrap">
+      <span>Thanks for stopping by.</span>
+      <button id="smiley" class="smiley" aria-label="Say hello" disabled>
+        <span aria-hidden="true">:)</span>
+      </button>
+    </div>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="../scripts/main.ts"></script>
+</Layout>

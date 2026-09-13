@@ -1,0 +1,71 @@
+---
+import '../styles/fonts.css';
+import '../styles/global.css';
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const {
+  title = 'Johannes Kroll — Software, AI & other interests',
+  description = 'Johannes Kroll: Data Scientist at SAP, freelance developer, and open-source enthusiast. Websites, software, agentic AI, and a few things outside of work.',
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f1eb" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/images/social.png', Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Johannes Kroll. Software, AI & a few other things." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header wrap">
+      <a href="/" class="wordmark" aria-label="JK / — Johannes Kroll home">
+        JK <span class="wordmark-dot">/</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="/#work">Work</a>
+        <a href="/#about">About</a>
+        <a href="/#play">Play</a>
+      </nav>
+      <a class="nav-contact" href="/#contact">
+        Let’s talk <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+    <slot />
+    <footer class="site-footer wrap">
+      <a href="/" class="footer-name">
+        Johannes Kroll
+      </a>
+      <span class="footer-note">Software. Sport. Source code.</span>
+      <div class="footer-links">
+        <a href="/site-info/">Site info</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="#top" aria-label="Back to top">
+          ↑
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<section class="play-section wrap section-shell" id="play" aria-labelledby="play-heading">
+  <div class="section-margin">
+    <span class="section-number">03</span>
+    <span>Distractions</span>
+    <p>
+      Small games.
+      <br />
+      Entirely optional.
+    </p>
+  </div>
+  <div class="section-content">
+    <div class="section-heading">
+      <h2 id="play-heading">While you’re here.</h2>
+      <span class="margin-note">Two things to play with</span>
+    </div>
+    <div class="play-grid">
+      <article class="game-card">
+        <div class="memory-art" aria-hidden="true">
+          <span>?</span>
+          <span>+</span>
+          <span>?</span>
+          <span>+</span>
+        </div>
+        <div class="game-card-copy">
+          <span class="eyebrow">01 / Memory</span>
+          <h3>Eight cards. Four pairs.</h3>
+          <p>You know the rules. See how few moves you need.</p>
+          <button class="text-link" data-game="memory" hidden>
+            Let’s play <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </article>
+      <article class="game-card">
+        <div class="graph-art" aria-hidden="true">
+          <svg viewBox="0 0 160 130" fill="none">
+            <path
+              d="M25 65 70 20 135 55 95 112 25 65 135 55 70 20 95 112M25 65l110-10"
+              stroke="currentColor"
+            />
+            <g fill="currentColor">
+              <circle cx="25" cy="65" r="5" />
+              <circle cx="70" cy="20" r="5" />
+              <circle cx="135" cy="55" r="5" />
+              <circle cx="95" cy="112" r="5" />
+            </g>
+          </svg>
+        </div>
+        <div class="game-card-copy">
+          <span class="eyebrow">02 / Graph puzzle</span>
+          <h3>Find the clique.</h3>
+          <p>A group where everyone is connected. Inspired by my quantum-computing project.</p>
+          <button class="text-link" data-game="clique" hidden>
+            Connect the dots <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </article>
+    </div>
+    <p id="game-fallback" class="noscript-note">
+      The games need JavaScript. The rest of the site works without it.
+    </p>
+    <p class="easter-hint">
+      P.S. There’s an old cheat code hidden here, too. <span aria-hidden="true">↑ ↑ …</span>
+    </p>
+  </div>
+</section>
+<dialog id="game-dialog" aria-labelledby="game-title" aria-describedby="game-description">
+  <div class="dialog-top">
+    <span class="eyebrow">Intermission</span>
+    <button class="dialog-close" aria-label="Close game" autofocus>
+      ×
+    </button>
+  </div>
+  <h2 id="game-title">Memory</h2>
+  <p id="game-description"></p>
+  <div id="game-board"></div>
+  <p id="game-status" role="status" aria-live="polite"></p>
+  <div class="game-actions">
+    <button id="game-reset" class="button button-dark">
+      Start again <span aria-hidden="true">↻</span>
+    </button>
+    <span id="game-counter" class="mono"></span>
+  </div>
+</dialog>

@@ -1,0 +1,22 @@
+{
+  "testedAt": "2026-09-13T19:05:58.356Z",
+  "environment": "Local production preview; simulated mobile Lighthouse run. Production results depend on hosting, network, and device.",
+  "lighthouseVersion": "12.8.2",
+  "scores": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "first-contentful-paint": "1.4 s",
+    "largest-contentful-paint": "1.4 s",
+    "total-blocking-time": "0 ms",
+    "cumulative-layout-shift": "0.007",
+    "total-byte-weight": "Total size was 108 KiB"
+  },
+  "labelContentNameMismatch": 1,
+  "build": "Passed Astro typecheck and static build; also verified on Node.js 24.21.0.",
+  "browserTests": "22 desktop/mobile tests passed. After final accessible-name edits, all 4 affected content and accessibility checks passed again.",
+  "routes": "Unknown route returned HTTP 404 with custom page; social PNG returned HTTP 200."
+}
