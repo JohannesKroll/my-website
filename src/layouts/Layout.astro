@@ -1,15 +1,19 @@
 ---
 import '../styles/fonts.css';
 import '../styles/global.css';
+import sansFont from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url';
+import { defaultTitle, defaultDescription, profileStructuredData, siteName } from '../data/seo';
 interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  profilePage?: boolean;
 }
 const {
-  title = 'Johannes Kroll — Software, AI & other interests',
-  description = 'Johannes Kroll: Data Scientist at SAP, freelance developer, and open-source enthusiast. Websites, software, agentic AI, and a few things outside of work.',
+  title = defaultTitle,
+  description = defaultDescription,
   noindex = false,
+  profilePage = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -21,19 +25,42 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f4f1eb" />
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="author" content={siteName} />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'}
+    />
     <link rel="canonical" href={canonical} />
+    <link rel="preload" href={sansFont} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL('/images/social.png', Astro.site)} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Johannes Kroll. Software, AI & a few other things." />
+    <meta
+      property="og:image:alt"
+      content="Johannes Kroll — AI & Data Scientist. Websites, software and agentic AI."
+    />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image:alt"
+      content="Johannes Kroll — AI & Data Scientist. Websites, software and agentic AI."
+    />
+    {profilePage && Astro.site && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(profileStructuredData(Astro.site, title, description)).replace(
+          /</g,
+          '\\u003c',
+        )}
+      ></script>
+    )}
     <title>{title}</title>
   </head>
   <body>
@@ -48,10 +75,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <a href="/#work">Work</a>
         <a href="/#about">About</a>
         <a href="/#play">Play</a>
+        <a class="nav-contact" href="/#contact">
+          Contact
+        </a>
       </nav>
-      <a class="nav-contact" href="/#contact">
-        Let’s talk <span aria-hidden="true">↗</span>
-      </a>
     </header>
     <slot />
     <footer class="site-footer wrap">

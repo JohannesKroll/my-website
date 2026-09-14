@@ -219,3 +219,75 @@ test('reduced motion preference is respected', async ({ page }) => {
     'auto',
   );
 });
+
+test('profile metadata, sitemap and crawlable content agree', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveTitle('Johannes Kroll — AI & Data Scientist, Software Developer');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://www.johanneskroll.com/',
+  );
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /index, follow/);
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    'content',
+    /agent evaluation/i,
+  );
+  await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
+  await expect(page.locator('#about')).toContainText('AI & Data Scientist at SAP');
+  await expect(page.locator('#about')).toContainText('large datasets');
+  const graph = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent())!,
+  )['@graph'];
+  const person = graph.find((item: { '@type': string }) => item['@type'] === 'Person');
+  const profile = graph.find((item: { '@type': string }) => item['@type'] === 'ProfilePage');
+  expect(person.jobTitle).toBe('AI & Data Scientist');
+  expect(person.worksFor.name).toBe('SAP');
+  expect(profile.mainEntity['@id']).toBe(person['@id']);
+  expect(person.image).toBeUndefined();
+  const robots = await page.request.get('/robots.txt');
+  expect(await robots.text()).toContain('Sitemap: https://www.johanneskroll.com/sitemap.xml');
+  const sitemap = await page.request.get('/sitemap.xml');
+  expect(sitemap.status()).toBe(200);
+  const locations = [...(await sitemap.text()).matchAll(/<loc>(.*?)<\/loc>/g)].map(
+    (match) => match[1],
+  );
+  expect(locations).toEqual([
+    'https://www.johanneskroll.com/',
+    'https://www.johanneskroll.com/privacy/',
+  ]);
+  for (const location of locations) {
+    await page.goto(new URL(location).pathname);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', location);
+    await expect(page.locator('meta[name="robots"]')).not.toHaveAttribute('content', /noindex/);
+  }
+  await page.goto('/site-info/');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  expect((await page.request.get('/images/johannes.webp')).status()).toBe(404);
+  const missing = await page.goto('/not-a-page/');
+  expect(missing!.status()).toBe(404);
+});
+
+test('phone navigation, touch targets and landscape game remain usable', async ({ browser }) => {
+  const context = await browser.newContext({
+    viewport: { width: 320, height: 740 },
+    hasTouch: true,
+    isMobile: true,
+  });
+  const page = await context.newPage();
+  await page.goto('/');
+  const contact = page.getByRole('navigation').getByRole('link', { name: 'Contact', exact: true });
+  await expect(contact).toBeInViewport();
+  expect((await contact.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  await contact.tap();
+  await expect(page).toHaveURL(/#contact$/);
+  await page.getByRole('button', { name: 'Connect the dots' }).tap();
+  const close = page.getByRole('button', { name: 'Close game' });
+  const closeBox = (await close.boundingBox())!;
+  expect(closeBox.width).toBeGreaterThanOrEqual(44);
+  expect(closeBox.height).toBeGreaterThanOrEqual(44);
+  await page.setViewportSize({ width: 740, height: 320 });
+  await expect(close).toBeInViewport();
+  await close.tap();
+  await expect(page.getByRole('dialog')).toBeHidden();
+  await context.close();
+});

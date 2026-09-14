@@ -173,11 +173,28 @@ p {
   color: var(--accent);
 }
 .hero-main {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1.12fr 1fr;
   align-items: center;
-  margin: 55px 0 58px;
-  gap: 40px;
+  margin: 58px 0 12px;
+  gap: clamp(35px, 5vw, 80px);
+}
+.hero-intro {
+  padding-top: 38px;
+}
+.hero-intro > .eyebrow {
+  display: block;
+  color: var(--accent);
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+.hero-intro > p:first-of-type {
+  font-size: clamp(23px, 2.2vw, 29px);
+  letter-spacing: -0.7px;
+  line-height: 1.45;
+}
+.hero-intro .hero-subtext {
+  margin-top: 20px;
 }
 .hero-name .eyebrow {
   display: block;
@@ -187,46 +204,12 @@ p {
   text-transform: none;
 }
 h1 {
-  font-size: clamp(100px, 12.5vw, 174px);
+  font-size: clamp(90px, 11vw, 148px);
   letter-spacing: -0.075em;
   line-height: 0.88;
 }
 h1 span {
   color: var(--accent);
-}
-.hero-portrait {
-  width: 215px;
-  flex-shrink: 0;
-  margin: 45px 35px 0 0;
-}
-.hero-portrait img {
-  width: 215px;
-  height: 236px;
-  object-fit: cover;
-  filter: grayscale(1);
-}
-.hero-portrait figcaption {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-top: 16px;
-}
-.hero-bottom {
-  display: grid;
-  grid-template-columns: 172px 1fr;
-  gap: 30px;
-}
-.hero-bottom > .margin-note {
-  padding-top: 7px;
-}
-.hero-bottom > div {
-  max-width: 670px;
-}
-.hero-bottom p:first-child {
-  font-size: 23px;
-  letter-spacing: -0.4px;
-  line-height: 1.5;
 }
 .hero-subtext {
   font-size: 15px;
@@ -872,9 +855,6 @@ dialog h2 {
   --surface: #1b3b5b;
   color-scheme: dark;
 }
-.retro-mode .hero-portrait img {
-  filter: grayscale(1) sepia(0.25);
-}
 .retro-mode .hero {
   background-image:
     linear-gradient(#ffffff07 1px, transparent 1px),
@@ -922,18 +902,6 @@ dialog h2 {
     width: calc(100% - 72px);
   }
   .section-shell,
-  .hero-bottom {
-    grid-template-columns: 125px minmax(0, 1fr);
-    gap: 25px;
-  }
-  .hero-portrait {
-    margin-right: 0;
-    width: 200px;
-  }
-  .hero-portrait img {
-    width: 200px;
-    height: 220px;
-  }
   .featured-project {
     gap: 25px;
   }
@@ -969,28 +937,21 @@ dialog h2 {
     width: calc(100% - 48px);
   }
   .hero-main {
-    margin-top: 42px;
-    gap: 25px;
+    grid-template-columns: 1fr;
+    margin: 42px 0 0;
+    gap: 30px;
+  }
+  .hero-intro {
+    padding-top: 0;
+    max-width: 580px;
+  }
+  .hero-intro > .eyebrow {
+    margin-bottom: 14px;
   }
   h1 {
     font-size: 110px;
   }
-  .hero-portrait {
-    width: 165px;
-    margin-top: 35px;
-  }
-  .hero-portrait img {
-    width: 165px;
-    height: 190px;
-  }
   .section-shell,
-  .hero-bottom {
-    grid-template-columns: 100px minmax(0, 1fr);
-    gap: 25px;
-  }
-  .hero-bottom p:first-child {
-    font-size: 21px;
-  }
   .section-margin p {
     display: none;
   }
@@ -1001,9 +962,7 @@ dialog h2 {
   .featured-copy p {
     max-width: 490px;
   }
-  .featured-copy .project-detail {
-    display: none;
-  }
+
   .project-type {
     display: none;
   }
@@ -1093,8 +1052,19 @@ dialog h2 {
   .site-header nav a {
     font-size: 12px;
   }
+  .site-header {
+    gap: 12px;
+  }
+  .site-header nav {
+    gap: 8px;
+  }
+  .site-header nav a {
+    min-width: 44px;
+    font-size: 12px;
+    justify-content: center;
+  }
   .nav-contact {
-    display: none;
+    display: inline-flex;
   }
   .hero {
     padding-top: 23px;
@@ -1107,9 +1077,15 @@ dialog h2 {
     display: none;
   }
   .hero-main {
-    position: relative;
-    margin-top: 40px;
-    margin-bottom: 35px;
+    margin-top: 32px;
+    margin-bottom: 0;
+    gap: 29px;
+  }
+  .hero-intro > p:first-of-type {
+    font-size: 24px;
+  }
+  .hero-intro > .eyebrow {
+    font-size: 10px;
   }
   .hero-name .eyebrow {
     font-size: 11px;
@@ -1120,32 +1096,8 @@ dialog h2 {
     line-height: 0.96;
     letter-spacing: -0.07em;
   }
-  .hero-portrait {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 85px;
-    margin: 0;
-  }
-  .hero-portrait img {
-    width: 85px;
-    height: 90px;
-  }
-  .hero-portrait figcaption {
-    display: none;
-  }
-  .hero-bottom {
-    display: block;
-  }
-  .hero-bottom > .margin-note {
-    display: none;
-  }
-  .hero-bottom p:first-child {
-    font-size: 20px;
-    line-height: 1.55;
-  }
   .hero-subtext {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 15px;
   }
   .hero-links {
@@ -1188,7 +1140,7 @@ dialog h2 {
     margin-top: 11px;
   }
   .featured-copy p {
-    font-size: 14px;
+    font-size: 15px;
     margin-top: 12px;
   }
   .featured-project {
@@ -1206,7 +1158,7 @@ dialog h2 {
     font-size: 24px;
   }
   .project-row p {
-    font-size: 13px;
+    font-size: 15px;
   }
   .project-detail {
     font-size: 8px;
@@ -1215,7 +1167,7 @@ dialog h2 {
     margin-top: 8px;
   }
   .services > p {
-    font-size: 14px;
+    font-size: 15px;
   }
   .services-list > div {
     grid-template-columns: 94px 1fr;
@@ -1225,7 +1177,7 @@ dialog h2 {
     font-size: 13px;
   }
   .services-list dd {
-    font-size: 12px;
+    font-size: 15px;
   }
   .about-grid {
     margin-top: 27px;
@@ -1234,7 +1186,7 @@ dialog h2 {
     font-size: 22px;
   }
   .about-copy p {
-    font-size: 14px;
+    font-size: 16px;
   }
   .experience-note {
     padding-left: 20px;
@@ -1255,7 +1207,7 @@ dialog h2 {
     margin-top: 30px;
   }
   .outside-grid p {
-    font-size: 13px;
+    font-size: 15px;
   }
   .outside-grid h4 {
     font-size: 11px;
@@ -1278,7 +1230,7 @@ dialog h2 {
     font-size: 46px;
   }
   .contact-section .section-content > p {
-    font-size: 14px;
+    font-size: 15px;
     margin-top: 18px;
   }
   .email-link {
@@ -1323,8 +1275,8 @@ dialog h2 {
     font-size: 27px;
   }
   .graph-node {
-    width: 39px;
-    height: 39px;
+    width: 44px;
+    height: 44px;
   }
   .prose-page {
     padding-block: 45px 65px;
@@ -1343,5 +1295,87 @@ dialog h2 {
   *::after {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+/* Comfortable tap targets, including the small controls around the games. */
+.site-header a,
+.text-link,
+.copy-email,
+.footer-links a,
+.smiley,
+.dialog-close,
+.button {
+  min-height: 44px;
+}
+.site-header a,
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+}
+.smiley,
+.dialog-close {
+  min-width: 44px;
+}
+@media (max-width: 560px) {
+  .services-list > div {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .project-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .project-date {
+    display: flex;
+    gap: 8px;
+    font-size: 10px;
+  }
+  .project-date br {
+    display: none;
+  }
+  .pi-project .lcd-illustration {
+    grid-column: 1;
+  }
+  .section-heading {
+    align-items: flex-start;
+  }
+  .section-heading > .text-link {
+    flex-shrink: 0;
+  }
+  .game-card p {
+    font-size: 15px;
+  }
+  #game-description,
+  #game-status {
+    font-size: 14px;
+  }
+  .footer-links {
+    gap: 12px;
+  }
+  .footer-links a {
+    min-width: 32px;
+  }
+}
+@media (max-width: 359px) {
+  .hero-name h1 {
+    font-size: 76px;
+  }
+  .section-heading {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .experience-note dl {
+    grid-template-columns: 1fr;
+  }
+  .game-card,
+  .game-card + .game-card {
+    gap: 17px;
+  }
+  .email-link {
+    font-size: 21px;
+  }
+  .game-actions {
+    flex-wrap: wrap;
   }
 }

@@ -11,9 +11,11 @@ const browser = await chromium.launch({
 
 try {
   await mkdir('docs/previews', { recursive: true });
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 1000 },
+    reducedMotion: 'reduce',
+  });
   await page.goto(origin, { waitUntil: 'networkidle' });
-  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.evaluate(async () => {
     await document.fonts.ready;
     const images = [...document.images];
@@ -24,27 +26,36 @@ try {
   });
   await page.screenshot({ path: 'docs/previews/desktop.png', fullPage: true });
   await page.screenshot({ path: 'docs/previews/hero.png' });
+  await page
+    .locator('#about')
+    .screenshot({ path: 'docs/previews/about.png', style: '.skip-link { visibility: hidden; }' });
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: 'docs/previews/mobile.png', fullPage: true });
+  await page.screenshot({ path: 'docs/previews/mobile-hero.png' });
+  await page.locator('#about').screenshot({
+    path: 'docs/previews/about-mobile.png',
+    style: '.skip-link { visibility: hidden; }',
+  });
   await page.getByRole('button', { name: 'Connect the dots' }).click();
   await page.screenshot({ path: 'docs/previews/game.png' });
   await page.getByRole('button', { name: 'Close game' }).click();
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: 'docs/previews/tablet.png' });
 
   await page.setViewportSize({ width: 1200, height: 630 });
   await page.evaluate(() => {
-    // All content is trusted local presentation markup, not user input.
-    const illustration = document.querySelector('.hero-art').outerHTML;
-    document.body.innerHTML = `<main style="width:1200px;height:630px;padding:55px 70px;background:#f7f7ef;overflow:hidden;position:relative">
-      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #d7dacd;padding-bottom:22px"><span style="font-family:var(--display);font-size:30px;letter-spacing:-1.2px">Johannes Kroll<span style="color:#74972f">.</span></span><span style="font-size:15px;color:#65695d">johanneskroll.com</span></div>
-      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:35px;align-items:center;padding-top:26px"><div><p style="font-family:var(--display);font-size:11px;letter-spacing:2px;color:#65695d;margin:0 0 20px">DEVELOPER & CURIOUS HUMAN</p><h1 style="font-size:77px;letter-spacing:-4px;line-height:1.06">A curious mind.<br>A hands-on<br><span class="serif-word">builder.</span></h1><p style="font-size:17px;color:#65695d;margin:24px 0 0">Websites. Useful software. Practical AI.</p></div><div style="height:425px;position:relative">${illustration}</div></div></main>`;
-    const art = document.querySelector('.hero-art');
-    art.style.cssText =
-      'width:460px;height:455px;transform:scale(.9);transform-origin:left top;margin:0;position:absolute;top:-5px;left:-8px';
+    // Trusted local markup. The sharing graphic deliberately contains no portrait.
+    document.body.innerHTML = `<main style="width:1200px;height:630px;padding:48px 65px;background:var(--paper);overflow:hidden;position:relative">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--ink);padding-bottom:22px;font-family:var(--mono);font-size:16px"><span>JK <span style="color:var(--accent)">/</span></span><span>johanneskroll.com</span></div>
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:70px;align-items:center;padding-top:58px"><h1 style="font-size:153px;letter-spacing:-.075em;line-height:.95">Johannes<br><span style="color:var(--accent)">Kroll.</span></h1><div><p style="font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--accent);margin:0 0 25px">AI & DATA SCIENTIST</p><p style="font-size:31px;letter-spacing:-.7px;line-height:1.4">AI agents, the data behind them, and software people use.</p><p style="font-size:17px;color:var(--muted);margin:23px 0 0;line-height:1.6">Websites. Custom software.<br>Agentic AI & evaluation.</p></div></div>
+      <div style="position:absolute;bottom:35px;left:65px;right:65px;border-top:1px solid var(--line);padding-top:16px;font-family:var(--mono);font-size:11px;color:var(--muted)">Software, AI & a few other things</div></main>`;
     window.scrollTo(0, 0);
   });
   await page.screenshot({ path: 'public/images/social.png' });
   console.log(
-    'Saved desktop, mobile, game and social previews. Rebuild to copy the social image to dist.',
+    'Updated desktop, phone, tablet, About, game and social previews. Rebuild to copy the social image to dist.',
   );
 } finally {
   await browser.close();
