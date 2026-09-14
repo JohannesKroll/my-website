@@ -48,17 +48,18 @@ Content starts in English. The CV supports German and English contact. Johannesâ
 
 ## Firebase deployment
 
-Deployment is left to you. No Firebase project has been created or connected, and nothing has been published.
+Configured for **`personal-website-472f2`**, with the same pinned Firebase CLI and build-before-deploy workflow as `../no-bull-shit`.
 
 After completing the items in `docs/LAUNCH.md`:
 
 ```sh
-npm run build
-npx firebase-tools login
-npx firebase-tools deploy --only hosting --project YOUR_FIREBASE_PROJECT_ID
+npm run firebase:login
+npm run deploy
 ```
 
-If you prefer to run `firebase init hosting`, keep `dist` as the public directory, choose **No** for single-page app rewrites, and preserve the provided `firebase.json`. Astro generates a real `404.html` and separate pages; requests should not all be rewritten to the homepage.
+The deploy command publishes only Hosting to the specified project. Its predeploy hook builds and checks the site automatically. `.firebaserc` and `firebase.json` are already set up; no `firebase init` is needed. Nothing has been published as part of configuring deployment.
+
+Run `npm run hosting:check` to verify the configuration in the local Firebase Hosting emulator. See [deployment instructions](DEPLOYMENT.md) for authentication, the Firebase URL, custom domains, and caching.
 
 In Firebase Hosting, attach **www.johanneskroll.com** and set up **johanneskroll.com** to redirect to it, following the DNS values Firebase gives you. The `www` address is the canonical URL in metadata, `robots.txt`, and the generated `sitemap.xml`. No DNS records or certificates have been changed here.
 
